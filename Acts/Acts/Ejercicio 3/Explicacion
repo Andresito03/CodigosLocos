@@ -1,0 +1,2 @@
+Los hashes son diferentes debido a las salt que se le aplico a cada uno, 
+si la salt es diferente todo el hash cambia anque tenga el mismo contenido

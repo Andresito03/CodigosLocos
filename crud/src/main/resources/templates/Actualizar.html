@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form th:action="@{'/Actualizar/' + ${persona.id}}" th:object="${persona}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" th:field="*{nombre}" id="nombre" required><br><br>
+
+        <label for="apellido">Apellido:</label>
+        <input type="text" th:field="*{apellido}" id="apellido" required><br><br>
+
+        <label for="mail">Email:</label>
+        <input type="text" th:field="*{mail}" id="mail" required><br><br>
+
+        <label for="telefono">Teléfono:</label>
+        <input type="text" th:field="*{telefono}" id="telefono" required><br><br>
+
+        <button type="submit">Actualizar</button>
+</body>
+</html>

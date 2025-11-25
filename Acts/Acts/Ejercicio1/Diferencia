@@ -1,0 +1,5 @@
+En CBC, los bloques dependen del anterior y del IV, por lo que mensajes iguales 
+pueden generar cifrados distintos si el IV cambia.
+en ECB, los bloques se cifran de forma independiente, así que bloques 
+iguales producen cifrados iguales. 
+CBC es más seguro, mientras que ECB es más rápido pero menos seguro.
