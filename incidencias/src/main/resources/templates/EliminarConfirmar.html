@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Eliminar Incidencia</h1>
+    <p>¿Estás seguro de que deseas eliminar la incidencia? <span></span></p>
+
+    <P><strong>Título:</strong> <span th:text="${incidencia.titulo}"></span></P>
+    <P><strong>Descripción:</strong> <span th:text="${incidencia.descripcion}"></span></P>
+    <P><strong>Prioridad:</strong> <span th:text="${incidencia.prioridad}"></span></P>
+    
+    <a th:href="@{'/incidencias/eliminarOK/' + ${incidencia.id}}">
+        <button type="button">Sí, eliminar</button>
+    </a>
+
+    <a th:href="@{/incidencias}">
+        <button type="button">No, volver</button>
+    </a>
+
+</body>
+
+</html>

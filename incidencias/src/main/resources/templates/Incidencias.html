@@ -34,13 +34,14 @@
                     <td th:text="${incidencia.tiempoResolucion}">Tiempo en resolverse</td>
                     <td th:text="${incidencia.prioridad}">Prioridad</td>
                     <td>
-                        <a th:href="@{'/incidencias/editar/' + ${incidencia.id}}">Editar</a>
+                        <a th:href="@{'/editarIncidenciasForm/' + ${incidencia.id}}">Editar</a>
                         <a th:href="@{'/incidencias/eliminar/' + ${incidencia.id}}">Eliminar</a>
                     </td>
                 </tr>
                 
             </tbody>
         </table>
+        <a id="create" th:href="@{/form}">Crear Nuevo Usuario</a>
     </div>
 </body>
 </html>

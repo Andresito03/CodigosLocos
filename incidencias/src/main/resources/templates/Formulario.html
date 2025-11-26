@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulario de incidencias</h1>
+    <form  th:action="@{/guardarIncidencias}" method="post" th:object="${incidencia}">
+        <label for="titulo">Titulo:</label>
+        <input type="text" id="titulo" name="titulo"><br><br>
+
+        <label for="descripcion">Descripcion:</label>
+        <textarea id="descripcion" name="descripcion"></textarea><br><br>
+
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" name="prioridad">
+            <option value="BAJA">BAJA</option>
+            <option value="MEDIA">MEDIA</option>
+            <option value="ALTA">ALTA</option>
+        </select><br><br>
+
+        <input type="submit" value="Enviar">
+
+    </form>
+</body>
+</html>
