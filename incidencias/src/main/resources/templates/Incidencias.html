@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Incidencias</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Apertura</th>
+                    <th>Cierre</th>
+                    <th>Estado</th>
+                    <th>Tiempo en resolverse</th>
+                    <th>Prioridad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="incidencia : ${incidencias}">
+                    
+                    <td th:text="${incidencia.id}">1</td>
+                    <td th:text="${incidencia.titulo}">Titulo</td>
+                    <td th:text="${incidencia.descripcion}">Descripcion</td>
+                    <td th:text="${incidencia.fechaApertura}">Apertura</td>
+                    <td th:text="${incidencia.fechaCierre}">Cierre</td>
+                    <td th:text="${incidencia.estado}">Estado</td>
+                    <td th:text="${incidencia.tiempoResolucion}">Tiempo en resolverse</td>
+                    <td th:text="${incidencia.prioridad}">Prioridad</td>
+                    <td>
+                        <a th:href="@{'/incidencias/editar/' + ${incidencia.id}}">Editar</a>
+                        <a th:href="@{'/incidencias/eliminar/' + ${incidencia.id}}">Eliminar</a>
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
