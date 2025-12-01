@@ -6,7 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.incidencias.dao.EstadoDao;
 import com.example.incidencias.dao.IncidenciasDao;
+import com.example.incidencias.domain.Estado;
 import com.example.incidencias.domain.incidencia;
 
 @Service
@@ -14,6 +17,9 @@ public class IncidenciasImpl implements incidenciasService {
 
     @Autowired
     private IncidenciasDao Dao;
+
+    @Autowired
+    private EstadoDao estadoRepo;
 
     @Override
     public List<incidencia> getAllIncidencias() {
@@ -31,19 +37,35 @@ public class IncidenciasImpl implements incidenciasService {
     }
 
     @Override
-    public void saveIncidencia(incidencia incidencia) {
+    public void saveIncidencia(Incidencia incidencia) {
+        // Fecha de apertura actual
         incidencia.setFechaApertura(LocalDate.now());
-        incidencia.setEstado("ABIERTA");
+
+        // Obtener el estado "ABIERTA" desde la base de datos
+        Estado estadoAbierta = estadoRepo.findByNombre("ABIERTA")
+                .orElseThrow(() -> new RuntimeException("Estado 'ABIERTA' no encontrado"));
+
+        incidencia.setEstado(estadoAbierta);
+
+        // Guardar incidencia
         Dao.save(incidencia);
     }
 
     @Override
-    public void updateIncidencia(incidencia incidencia) {
-        if (incidencia.getEstado().equals("CERRADA")) {
+    public void updateIncidencia(Incidencia incidencia) {
+        // Si el estado es "CERRADA", se pone la fecha de cierre actual
+        if ("CERRADA".equals(incidencia.getEstado().getNombre())) {
             incidencia.setFechaCierre(LocalDate.now());
         }
-        long dias = ChronoUnit.DAYS.between(incidencia.getFechaApertura(), incidencia.getFechaCierre());
-        incidencia.setTiempoResolucion(dias + " días");
+
+        // Calcular tiempo de resolución si ya se cerró
+        if (incidencia.getFechaCierre() != null) {
+            long dias = ChronoUnit.DAYS.between(incidencia.getFechaApertura(), incidencia.getFechaCierre());
+            incidencia.setTiempoResolucion(dias + " días");
+        }
+
+        // Guardar cambios
         Dao.save(incidencia);
     }
+
 }

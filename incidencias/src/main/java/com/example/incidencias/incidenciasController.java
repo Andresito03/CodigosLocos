@@ -91,4 +91,12 @@ public class incidenciasController {
         }
     }
 
+    @PostMapping("/estado/nuevo")
+    public String postMethodName(@RequestBody String entity) {
+
+        
+        return "FormularioEstado";
+    }
+    
+
 }

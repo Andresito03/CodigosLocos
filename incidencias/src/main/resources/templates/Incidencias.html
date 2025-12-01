@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
 <body>
     <div>
         <h1>Incidencias</h1>
-        <table>
+        <table border="1">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -24,7 +24,6 @@
             </thead>
             <tbody>
                 <tr th:each="incidencia : ${incidencias}">
-                    
                     <td th:text="${incidencia.id}">1</td>
                     <td th:text="${incidencia.titulo}">Titulo</td>
                     <td th:text="${incidencia.descripcion}">Descripcion</td>
@@ -34,14 +33,26 @@
                     <td th:text="${incidencia.tiempoResolucion}">Tiempo en resolverse</td>
                     <td th:text="${incidencia.prioridad}">Prioridad</td>
                     <td>
-                        <a th:href="@{'/editarIncidenciasForm/' + ${incidencia.id}}">Editar</a>
-                        <a th:href="@{'/incidencias/eliminar/' + ${incidencia.id}}">Eliminar</a>
+                        <form th:action="@{'/editarIncidenciasForm/' + ${incidencia.id}}" method="get" style="display:inline">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="post" style="display:inline">
+                            <button type="submit">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
-                
             </tbody>
         </table>
-        <a id="create" th:href="@{/form}">Crear Nuevo Usuario</a>
+
+        <!-- Botón para crear un nuevo usuario -->
+        <form th:action="@{/form}" method="get" style="margin-top: 10px;">
+            <button type="submit">Crear Nuevo Usuario</button>
+        </form>
+
+        <!-- Botón para añadir nuevo estado -->
+        <form th:action="@{/estado/nuevo}" method="get" style="margin-top: 10px;">
+            <button type="submit">Añadir Nuevo Estado</button>
+        </form>
     </div>
 </body>
 </html>

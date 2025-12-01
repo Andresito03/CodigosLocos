@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.incidencias.domain.Estado;
 import com.example.incidencias.domain.incidencia;
 
 @Repository
-public interface IncidenciasDao extends JpaRepository<incidencia, Long> {
+public interface EstadoDao extends JpaRepository<Estado, Long> {
 
 }

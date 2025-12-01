@@ -23,7 +23,9 @@ public class incidencia {
     @Column(name = "fechacierre")
     private LocalDate fechaCierre;
 
-    private String estado;
+    @ManyToOne
+    @JoinColumn(name = "estado") // FK hacia estados.id
+    private Estado estado;
 
     @Column(name = "tiemporesolucion")
     private String tiempoResolucion;
