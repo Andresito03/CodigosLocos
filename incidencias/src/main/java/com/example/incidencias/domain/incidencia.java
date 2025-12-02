@@ -1,14 +1,14 @@
-package com.example.incidencias.domain;
+package com.example.incidencias.domain; 
 
-import jakarta.persistence.*;
-import lombok.Data;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-@Entity
-@Table(name = "incidencias")
-@Data
-public class incidencia {
+import jakarta.persistence.*; 
+import lombok.Data; 
+import java.time.LocalDate; 
+import java.time.LocalTime; 
+@Entity 
+@Table(name = "incidencias") 
+@Data 
+public class incidencia{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class incidencia {
     private LocalDate fechaCierre;
 
     @ManyToOne
-    @JoinColumn(name = "estado") // FK hacia estados.id
+    @JoinColumn(name = "estado_id") // FK correcta hacia estados.id
     private Estado estado;
 
     @Column(name = "tiemporesolucion")

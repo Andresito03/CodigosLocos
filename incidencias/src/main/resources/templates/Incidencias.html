@@ -29,14 +29,14 @@
                     <td th:text="${incidencia.descripcion}">Descripcion</td>
                     <td th:text="${incidencia.fechaApertura}">Apertura</td>
                     <td th:text="${incidencia.fechaCierre}">Cierre</td>
-                    <td th:text="${incidencia.estado}">Estado</td>
+                    <td th:text="${incidencia.estado.nombre}">Estado</td>
                     <td th:text="${incidencia.tiempoResolucion}">Tiempo en resolverse</td>
                     <td th:text="${incidencia.prioridad}">Prioridad</td>
                     <td>
                         <form th:action="@{'/editarIncidenciasForm/' + ${incidencia.id}}" method="get" style="display:inline">
                             <button type="submit">Editar</button>
                         </form>
-                        <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="post" style="display:inline">
+                        <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="get" style="display:inline">
                             <button type="submit">Eliminar</button>
                         </form>
                     </td>

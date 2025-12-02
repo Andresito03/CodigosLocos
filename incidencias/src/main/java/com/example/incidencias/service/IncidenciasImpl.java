@@ -37,13 +37,13 @@ public class IncidenciasImpl implements incidenciasService {
     }
 
     @Override
-    public void saveIncidencia(Incidencia incidencia) {
+    public void saveIncidencia(incidencia incidencia) {
+
         // Fecha de apertura actual
         incidencia.setFechaApertura(LocalDate.now());
 
-        // Obtener el estado "ABIERTA" desde la base de datos
-        Estado estadoAbierta = estadoRepo.findByNombre("ABIERTA")
-                .orElseThrow(() -> new RuntimeException("Estado 'ABIERTA' no encontrado"));
+        // Obtener el estado con ID 1 ("ABIERTA")
+        Estado estadoAbierta = estadoRepo.findById(1L).orElse(null);
 
         incidencia.setEstado(estadoAbierta);
 
@@ -52,7 +52,7 @@ public class IncidenciasImpl implements incidenciasService {
     }
 
     @Override
-    public void updateIncidencia(Incidencia incidencia) {
+    public void updateIncidencia(incidencia incidencia) {
         // Si el estado es "CERRADA", se pone la fecha de cierre actual
         if ("CERRADA".equals(incidencia.getEstado().getNombre())) {
             incidencia.setFechaCierre(LocalDate.now());
