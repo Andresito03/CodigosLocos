@@ -1,4 +1,4 @@
-package com.example.incidencias.service;
+package com.example.incidencias.service.Estado;
 
 import java.util.List;
 import com.example.incidencias.domain.Estado;

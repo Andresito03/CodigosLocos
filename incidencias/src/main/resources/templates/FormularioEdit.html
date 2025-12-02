@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Editar incidencias</h1>
     <form th:action="@{'/editarIncidencias/' + ${incidencia.id}}" method="post" th:object="${incidencia}">
 
-    <label for="titulo">Titulo:</label>
-    <input type="text" id="titulo" th:field="*{titulo}"><br><br>
+        <label for="titulo">Titulo:</label>
+        <input type="text" id="titulo" th:field="*{titulo}"><br><br>
 
-    <label for="descripcion">Descripcion:</label>
-    <textarea id="descripcion" th:field="*{descripcion}"></textarea><br><br>
+        <label for="descripcion">Descripcion:</label>
+        <textarea id="descripcion" th:field="*{descripcion}"></textarea><br><br>
 
-    <label for="prioridad">Prioridad:</label>
-    <select id="prioridad" th:field="*{prioridad}">
-        <option value="BAJA">BAJA</option>
-        <option value="MEDIA">MEDIA</option>
-        <option value="ALTA">ALTA</option>
-    </select><br><br>
-    <label for="estado">Estado:</label>
-    <select id="estado" th:field="*{estado}">
-        <option value="ABIERTA">ABIERTA</option>
-        <option value="EN_PROGRESO">EN_PROGRESO</option>
-        <option value="CERRADA">CERRADA</option>
-    </select><br><br>
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" th:field="*{prioridad}">
+            <option value="BAJA">BAJA</option>
+            <option value="MEDIA">MEDIA</option>
+            <option value="ALTA">ALTA</option>
+        </select><br><br>
+        <label for="estado">Estado:</label>
+        <select id="estado" th:field="*{estado}">
+            <option th:each="e : ${estados}" th:value="${e.id}" th:text="${e.nombre}">
+            </option>
+        </select><br><br>
 
-    <input type="submit" value="Enviar">
 
-</form>
+        <input type="submit" value="Enviar">
+
+    </form>
 
 </body>
+
 </html>

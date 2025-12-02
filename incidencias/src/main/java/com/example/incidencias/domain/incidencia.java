@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDate; 
 import java.time.LocalTime; 
 @Entity 
-@Table(name = "incidencias") 
+@Table(name = "Incidencias") 
 @Data 
 public class incidencia{
 
@@ -24,7 +24,7 @@ public class incidencia{
     private LocalDate fechaCierre;
 
     @ManyToOne
-    @JoinColumn(name = "estado_id") // FK correcta hacia estados.id
+    @JoinColumn(name = "estado") // FK correcta hacia estados.id
     private Estado estado;
 
     @Column(name = "tiemporesolucion")

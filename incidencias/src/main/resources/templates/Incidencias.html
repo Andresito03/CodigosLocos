@@ -3,23 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title th:text="${t['incidencias']}">Incidencias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 8px 15px;
+            margin: 3px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .lang-buttons {
+            margin-bottom: 15px;
+        }
+        .lang-buttons button {
+            background-color: #95a5a6;
+        }
+        .lang-buttons button:hover {
+            background-color: #7f8c8d;
+        }
+        .top-buttons form {
+            display: inline-block;
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <h1>Incidencias</h1>
-        <table border="1">
+    <div class="container">
+
+        <!-- Botones de cambio de idioma -->
+        <div class="lang-buttons">
+            <form th:action="@{/cambiarIdiomaIncidencias}" method="get" style="display:inline;">
+                <input type="hidden" name="idioma" value="1">
+                <button type="submit">ES</button>
+            </form>
+            <form th:action="@{/cambiarIdiomaIncidencias}" method="get" style="display:inline;">
+                <input type="hidden" name="idioma" value="2">
+                <button type="submit">CA</button>
+            </form>
+            <form th:action="@{/cambiarIdiomaIncidencias}" method="get" style="display:inline;">
+                <input type="hidden" name="idioma" value="3">
+                <button type="submit">EN</button>
+            </form>
+        </div>
+
+        <h1 th:text="${t['incidencias']}">Incidencias</h1>
+
+        <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Titulo</th>
-                    <th>Descripcion</th>
-                    <th>Apertura</th>
-                    <th>Cierre</th>
-                    <th>Estado</th>
-                    <th>Tiempo en resolverse</th>
-                    <th>Prioridad</th>
-                    <th>Acciones</th>
+                    <th th:text="${t['id']}">ID</th>
+                    <th th:text="${t['titulo']}">Titulo</th>
+                    <th th:text="${t['descripcion']}">Descripcion</th>
+                    <th th:text="${t['apertura']}">Apertura</th>
+                    <th th:text="${t['cierre']}">Cierre</th>
+                    <th th:text="${t['estado']}">Estado</th>
+                    <th th:text="${t['tiempo_resolverse']}">Tiempo en resolverse</th>
+                    <th th:text="${t['prioridad']}">Prioridad</th>
+                    <th th:text="${t['acciones']}">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,25 +110,31 @@
                     <td th:text="${incidencia.prioridad}">Prioridad</td>
                     <td>
                         <form th:action="@{'/editarIncidenciasForm/' + ${incidencia.id}}" method="get" style="display:inline">
-                            <button type="submit">Editar</button>
+                            <button type="submit" th:text="${t['acciones']}">Editar</button>
                         </form>
                         <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="get" style="display:inline">
-                            <button type="submit">Eliminar</button>
+                            <button type="submit" th:text="${t['acciones']}">Eliminar</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <!-- Botón para crear un nuevo usuario -->
-        <form th:action="@{/form}" method="get" style="margin-top: 10px;">
-            <button type="submit">Crear Nuevo Usuario</button>
-        </form>
+        <!-- Botones de acciones principales -->
+        <div class="top-buttons" style="margin-top: 15px;">
+            <form th:action="@{/form}" method="get">
+                <button type="submit" th:text="${t['crear_nueva_incidencia']}">Crear Nueva incidencia</button>
+            </form>
 
-        <!-- Botón para añadir nuevo estado -->
-        <form th:action="@{/estado/nuevo}" method="get" style="margin-top: 10px;">
-            <button type="submit">Añadir Nuevo Estado</button>
-        </form>
+            <form th:action="@{/estadoGestion}" method="get">
+                <button type="submit" th:text="${t['gestor_estado']}">Gestor de estado</button>
+            </form>
+
+            <form th:action="@{/trabajadoresGestion}" method="get">
+                <button type="submit" th:text="${t['gestor_trabajadores']}">Gestor de trabajadores</button>
+            </form>
+        </div>
+
     </div>
 </body>
 </html>

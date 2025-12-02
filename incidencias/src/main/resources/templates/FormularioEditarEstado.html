@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Estado</title>
+</head>
+<body>
+    <h1 th:text="${estado.id != null} ? 'Editar Estado' : 'Añadir Estado'"></h1>
+
+    <form th:action="${estado.id != null} ? @{'/estados/editar/' + ${estado.id}} : @{/estados/nuevo}" 
+          method="post" th:object="${estado}">
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required><br><br>
+
+        <input type="submit" th:value="${estado.id != null} ? 'Guardar cambios' : 'Añadir Estado'">
+    </form>
+
+    <br>
+    <a th:href="@{/estadoGestion}">Volver a la lista de estados</a>
+</body>
+</html>

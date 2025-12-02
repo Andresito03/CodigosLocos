@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estados</title>
+</head>
+
+<body>
+    <h1>Gestión de Estados</h1>
+
+    <!-- Tabla de estados -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="estado : ${estados}">
+                <td th:text="${estado.id}"></td>
+                <td th:text="${estado.nombre}"></td>
+                <td>
+                    <span th:if="${estado.id == 1 or estado.id == 2 or estado.id == 3}">Protegido</span>
+
+                    <span th:if="${estado.id != 1 and estado.id != 2 and estado.id != 3}">
+                        <a th:href="@{'/estados/editar/' + ${estado.id}}">Editar</a>
+                        <a th:href="@{'/estados/eliminar/' + ${estado.id}}"
+                            onclick="return confirm('¿Seguro que quieres eliminar este estado?');">Eliminar</a>
+                    </span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Añadir nuevo estado</h2>
+    <form th:action="@{/estados/nuevo}" method="post" th:object="${nuevoEstado}">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" th:field="*{nombre}" required>
+        <input type="submit" value="Añadir">
+    </form>
+
+    <form th:action="@{/Volver}" method="get">
+        <button type="submit">Volver</button>
+    </form>
+
+</body>
+
+</html>

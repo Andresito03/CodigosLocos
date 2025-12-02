@@ -1,4 +1,4 @@
-package com.example.incidencias.service;
+package com.example.incidencias.service.Incidencias;
 
 import java.util.List;
 import com.example.incidencias.domain.incidencia;

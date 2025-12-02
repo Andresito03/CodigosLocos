@@ -1,4 +1,4 @@
-package com.example.incidencias.service;
+package com.example.incidencias.service.Incidencias;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
