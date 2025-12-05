@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "estados")
+@Table(name = "trabajadores")
 @Data
 public class Trabajador{
 
@@ -12,5 +12,8 @@ public class Trabajador{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nombre;
+    private String apellido;    
+    private String email;
+    private float preciohora;
 
 }

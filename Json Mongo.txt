@@ -1,0 +1,116 @@
+[
+  {
+    "key": "login",
+    "es": "Iniciar sesión",
+    "ca": "Inicia sessió",
+    "en": "Log in"
+  },
+  {
+    "key": "username",
+    "es": "Nombre de usuario",
+    "ca": "Nom d'usuari",
+    "en": "Username"
+  },
+  {
+    "key": "password",
+    "es": "Contraseña",
+    "ca": "Contrasenya",
+    "en": "Password"
+  },
+  {
+    "key": "logout",
+    "es": "Cerrar sesión",
+    "ca": "Tancar sessió",
+    "en": "Log out"
+  },
+  {
+    "key": "incidencias",
+    "es": "Incidencias",
+    "ca": "Incidències",
+    "en": "Incidents"
+  },
+  {
+    "key": "id",
+    "es": "ID",
+    "ca": "ID",
+    "en": "ID"
+  },
+  {
+    "key": "titulo",
+    "es": "Título",
+    "ca": "Títol",
+    "en": "Title"
+  },
+  {
+    "key": "descripcion",
+    "es": "Descripción",
+    "ca": "Descripció",
+    "en": "Description"
+  },
+  {
+    "key": "apertura",
+    "es": "Apertura",
+    "ca": "Obertura",
+    "en": "Opening"
+  },
+  {
+    "key": "cierre",
+    "es": "Cierre",
+    "ca": "Tancament",
+    "en": "Closing"
+  },
+  {
+    "key": "estado",
+    "es": "Estado",
+    "ca": "Estat",
+    "en": "Status"
+  },
+  {
+    "key": "tiempo_resolverse",
+    "es": "Tiempo en resolverse",
+    "ca": "Temps en resoldre's",
+    "en": "Time to resolve"
+  },
+  {
+    "key": "prioridad",
+    "es": "Prioridad",
+    "ca": "Prioritat",
+    "en": "Priority"
+  },
+  {
+    "key": "acciones",
+    "es": "Acciones",
+    "ca": "Accions",
+    "en": "Actions"
+  },
+  {
+    "key": "editar",
+    "es": "Editar",
+    "ca": "Editar",
+    "en": "Edit"
+  },
+  {
+    "key": "eliminar",
+    "es": "Eliminar",
+    "ca": "Eliminar",
+    "en": "Delete"
+  },
+  {
+    "key": "crear_incidencia",
+    "es": "Crear nueva incidencia",
+    "ca": "Crear nova incidència",
+    "en": "Create new incident"
+  },
+  {
+    "key": "gestor_estado",
+    "es": "Gestor de estado",
+    "ca": "Gestor d'estat",
+    "en": "State manager"
+  },
+  {
+    "key": "gestor_trabajadores",
+    "es": "Gestor de trabajadores",
+    "ca": "Gestor de treballadors",
+    "en": "Workers manager"
+  }
+]

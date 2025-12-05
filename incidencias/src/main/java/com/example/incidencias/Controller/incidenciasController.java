@@ -1,9 +1,16 @@
 package com.example.incidencias.Controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,13 +24,18 @@ import com.example.incidencias.service.LoginService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.incidencias.domain.Estado;
+import com.example.incidencias.domain.Trabajador;
 import com.example.incidencias.domain.Traduccion;
+import com.example.incidencias.service.Incidencias.service;
+import com.example.incidencias.service.Trabajadores.trabajadorService;
 import com.example.incidencias.service.Traduccion.TraduccionService;
 
 @Controller
@@ -37,6 +49,13 @@ public class incidenciasController {
     EstadoService serviceEstado;
     @Autowired
     TraduccionService traduccionService;
+    @Autowired
+    trabajadorService trabajadorService;
+    @Autowired
+    service serviceService;
+
+    @Value("${app.upload.dir:./uploads/}")
+    private String uploadDir;
 
     public int idioma = 1;
 
@@ -76,7 +95,42 @@ public class incidenciasController {
     }
 
     @PostMapping("/guardarIncidencias")
-    public String saveIncidencia(incidencia incidencia) {
+    public String saveIncidencia(
+            @ModelAttribute incidencia incidencia,
+            @RequestParam(value = "archivoImagen", required = false) MultipartFile archivoImagen) {
+
+        if (archivoImagen != null && !archivoImagen.isEmpty()) {
+            try {
+                // ===== USAR ESTA RUTA =====
+                Path uploadPath = Paths.get("incidencias/uploads").toAbsolutePath();
+                System.out.println(" Ruta UPLOADS: " + uploadPath.toString());
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                    System.out.println(" Carpeta uploads creada DENTRO de incidencias");
+                }
+
+                // Generar nombre único
+                String originalFileName = archivoImagen.getOriginalFilename();
+                String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                String nombreArchivo = "incidencia_" + System.currentTimeMillis() + extension;
+
+                // Guardar archivo
+                Path rutaArchivo = uploadPath.resolve(nombreArchivo);
+                Files.copy(archivoImagen.getInputStream(), rutaArchivo,
+                        StandardCopyOption.REPLACE_EXISTING);
+
+                // Guardar solo el nombre en BD
+                incidencia.setImagen(nombreArchivo);
+
+                System.out.println(" Archivo guardado en: " + rutaArchivo.toString());
+                System.out.println(" Nombre en BD: " + nombreArchivo);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         service.saveIncidencia(incidencia);
         return "redirect:/incidencias";
     }
@@ -169,8 +223,41 @@ public class incidenciasController {
 
     @GetMapping("/trabajadoresGestion")
     public String trabajadoresGestion(Model model) {
-
+        List<Trabajador> trabajadores = trabajadorService.getAllTrabajador();
+        model.addAttribute("trabajadores", trabajadores);
         return "trabajadores";
     }
 
+    @GetMapping("/trabajadores/nuevo")
+    public String mostrarFormularioNuevoTrabajador(Model model) {
+        model.addAttribute("trabajador", new Trabajador());
+        return "nuevoTrabajador";
+    }
+
+    @PostMapping("/trabajadores/guardar")
+    public String guardarTrabajador(@ModelAttribute Trabajador trabajador) {
+        trabajadorService.saveTrabajador(trabajador);
+        return "redirect:/trabajadoresGestion";
+    }
+
+    @GetMapping("/trabajadores/eliminar/{id}")
+    public String EliminarTrabajador(@PathVariable("id") Long id) {
+        trabajadorService.deleteTrabajadorById(id);
+        return "redirect:/trabajadoresGestion";
+    }
+
+    @GetMapping("/debug")
+    @ResponseBody
+    public String debug() {
+        String info = "<h3>Debug Info:</h3>";
+        info += "<p>user.dir: " + System.getProperty("user.dir") + "</p>";
+        info += "<p>Path uploads: " + Paths.get("uploads").toAbsolutePath() + "</p>";
+        info += "<p>Path incidencias/uploads: " + Paths.get("incidencias/uploads").toAbsolutePath() + "</p>";
+
+        // Verifica si estás ejecutando desde IDE o terminal
+        File currentDir = new File(".");
+        info += "<p>Current dir: " + currentDir.getAbsolutePath() + "</p>";
+
+        return info;
+    }
 }

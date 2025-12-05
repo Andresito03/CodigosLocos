@@ -1,14 +1,13 @@
-package com.example.incidencias.domain; 
+package com.example.incidencias.domain;
 
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDate;
 
-import jakarta.persistence.*; 
-import lombok.Data; 
-import java.time.LocalDate; 
-import java.time.LocalTime; 
-@Entity 
-@Table(name = "Incidencias") 
-@Data 
-public class incidencia{
+@Entity
+@Table(name = "Incidencias")
+@Data
+public class incidencia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,11 +23,15 @@ public class incidencia{
     private LocalDate fechaCierre;
 
     @ManyToOne
-    @JoinColumn(name = "estado") // FK correcta hacia estados.id
+    @JoinColumn(name = "estado")
     private Estado estado;
 
     @Column(name = "tiemporesolucion")
     private String tiempoResolucion;
 
     private String prioridad;
+
+    // Solo guardamos el nombre del archivo
+    private String imagen;
 }
+

@@ -39,26 +39,6 @@ public class TraduccionServiceImpl implements TraduccionService {
     }
 
     @Override
-    public String getTraduccion(String key, String idioma) {
-        Optional<Traduccion> opt = repository.findByKey(key);
-        if (opt.isEmpty()) {
-            return null;
-        }
-
-        Traduccion t = opt.get();
-        return switch (idioma.toLowerCase()) {
-            case "es" ->
-                t.getEs();
-            case "ca" ->
-                t.getCa();
-            case "en" ->
-                t.getEn();
-            default ->
-                t.getEs();
-        };
-    }
-
-    @Override
     public Map<String, String> getTraduccionesPorIdioma(int idioma) {
         List<Traduccion> todas = repository.findAll();
 
@@ -77,5 +57,4 @@ public class TraduccionServiceImpl implements TraduccionService {
                 }
                 ));
     }
-
 }

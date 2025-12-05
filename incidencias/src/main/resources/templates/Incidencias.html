@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,31 +11,45 @@
             background-color: #f5f5f5;
             padding: 20px;
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background-color: #fff;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
-        th, td {
+
+        th,
+        td {
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
         }
+
         th {
             background-color: #3498db;
             color: white;
         }
+
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        img.incidencia-img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
         button {
             padding: 8px 15px;
             margin: 3px;
@@ -45,24 +60,30 @@
             color: white;
             font-weight: bold;
         }
+
         button:hover {
             background-color: #2980b9;
         }
+
         .lang-buttons {
             margin-bottom: 15px;
         }
+
         .lang-buttons button {
             background-color: #95a5a6;
         }
+
         .lang-buttons button:hover {
             background-color: #7f8c8d;
         }
+
         .top-buttons form {
             display: inline-block;
             margin-right: 5px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
 
@@ -90,6 +111,7 @@
                     <th th:text="${t['id']}">ID</th>
                     <th th:text="${t['titulo']}">Titulo</th>
                     <th th:text="${t['descripcion']}">Descripcion</th>
+                    <th th:text="${t['imagen']}">Imagen</th>
                     <th th:text="${t['apertura']}">Apertura</th>
                     <th th:text="${t['cierre']}">Cierre</th>
                     <th th:text="${t['estado']}">Estado</th>
@@ -103,17 +125,35 @@
                     <td th:text="${incidencia.id}">1</td>
                     <td th:text="${incidencia.titulo}">Titulo</td>
                     <td th:text="${incidencia.descripcion}">Descripcion</td>
+
+                    <!-- Mostrar imagen -->
+                    <td>
+                        <!-- Opción 1: Imagen de la incidencia si existe -->
+                        <img th:if="${incidencia.imagen != null and !incidencia.imagen.isEmpty()}"
+                            th:src="@{'/uploads/' + ${incidencia.imagen}}" class="incidencia-img"
+                            th:alt="${'Imagen: ' + incidencia.titulo}" width="100"
+                            onerror="this.onerror=null; this.src='/img/default.png'; this.classList.add('default-img'); this.alt='Imagen incidencia';">
+
+                        <!-- Opción 2: Imagen por defecto si no hay imagen -->
+                        <img th:unless="${incidencia.imagen != null and !incidencia.imagen.isEmpty()}"
+                            src="\uploads\default.jpg" class="incidencia-img default-img" alt="Imagen por defecto"
+                            width="100">
+                    </td>
+
+
                     <td th:text="${incidencia.fechaApertura}">Apertura</td>
                     <td th:text="${incidencia.fechaCierre}">Cierre</td>
                     <td th:text="${incidencia.estado.nombre}">Estado</td>
                     <td th:text="${incidencia.tiempoResolucion}">Tiempo en resolverse</td>
                     <td th:text="${incidencia.prioridad}">Prioridad</td>
                     <td>
-                        <form th:action="@{'/editarIncidenciasForm/' + ${incidencia.id}}" method="get" style="display:inline">
-                            <button type="submit" th:text="${t['acciones']}">Editar</button>
+                        <form th:action="@{'/editarIncidenciasForm/' + ${incidencia.id}}" method="get"
+                            style="display:inline">
+                            <button type="submit" th:text="${t['editar']}">Editar</button>
                         </form>
-                        <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="get" style="display:inline">
-                            <button type="submit" th:text="${t['acciones']}">Eliminar</button>
+                        <form th:action="@{'/incidencias/eliminar/' + ${incidencia.id}}" method="get"
+                            style="display:inline">
+                            <button type="submit" th:text="${t['eliminar']}">Eliminar</button>
                         </form>
                     </td>
                 </tr>
@@ -137,4 +177,5 @@
 
     </div>
 </body>
+
 </html>

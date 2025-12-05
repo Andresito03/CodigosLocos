@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulario de Incidencias</title>
 </head>
+
 <body>
     <h1>Formulario de incidencias</h1>
-    <form  th:action="@{/guardarIncidencias}" method="post" th:object="${incidencia}">
-        <label for="titulo">Titulo:</label>
-        <input type="text" id="titulo" name="titulo"><br><br>
 
-        <label for="descripcion">Descripcion:</label>
-        <textarea id="descripcion" name="descripcion"></textarea><br><br>
+    <form th:action="@{/guardarIncidencias}" th:object="${incidencia}" method="post" enctype="multipart/form-data">
 
-        <label for="prioridad">Prioridad:</label>
-        <select id="prioridad" name="prioridad">
+        <label>Título:</label>
+        <input type="text" th:field="*{titulo}" required>
+
+        <label>Descripción:</label>
+        <textarea th:field="*{descripcion}" required></textarea>
+
+        <label>Prioridad:</label>
+        <select th:field="*{prioridad}">
             <option value="BAJA">BAJA</option>
             <option value="MEDIA">MEDIA</option>
             <option value="ALTA">ALTA</option>
-        </select><br><br>
+        </select>
 
-        <input type="submit" value="Enviar">
+        <label>Imagen (Opcional):</label>
+        <input type="file" name="archivoImagen" accept=".jpg,.jpeg,.png,.gif">
 
+        <button type="submit">Enviar</button>
     </form>
 </body>
+
 </html>
